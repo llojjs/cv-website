@@ -1,35 +1,32 @@
 import { motion } from 'motion/react';
-import { Code, Languages, Briefcase, Star } from 'lucide-react';
+import { Code, Languages, Briefcase, Star, Dot } from 'lucide-react';
 import { Card } from './ui/card';
 import { Progress } from './ui/progress';
 
 const languages = [
   { name: "Swedish", level: "Native", progress: 100 },
   { name: "English", level: "Fluent", progress: 95 },
-  { name: "Mandarin Chinese (HSK4)", level: "Conversational", progress: 75 },
-  { name: "German", level: "Conversational", progress: 60 },
-  { name: "Korean", level: "Basic", progress: 40 }
+  { name: "Mandarin Chinese (HSK4)", level: "Conversational", progress: 50 },
+  { name: "German", level: "Conversational", progress: 50 },
+  { name: "Korean", level: "Basic", progress: 20 }
 ];
 
 const programmingSkills = [
-  { name: "JavaScript", level: 85 },
-  { name: "Python", level: 80 },
-  { name: "HTML/CSS", level: 90 },
-  { name: "R", level: 75 },
-  { name: "Java", level: 70 },
-  { name: "ADA-95", level: 65 },
-  { name: "AMPL", level: 60 }
+  { name: "JavaScript"},
+  { name: "TypeScript"},
+  { name: "Python"},
+  { name: "HTML/CSS"},
+  { name: "R"},
+  { name: "Java"},
+  { name: "ADA-95"},
+  { name: "AMPL"}
 ];
 
 const professionalSkills = [
-  "Cross-cultural Management",
   "Project Leadership", 
   "Quality Control",
-  "International Business",
   "Event Organization",
   "Customer Service",
-  "Team Training & Development",
-  "Manufacturing Processes"
 ];
 
 export function Skills() {
@@ -66,7 +63,7 @@ export function Skills() {
                 </div>
                 <h3 className="text-2xl">Languages</h3>
               </div>
-              
+
               <div className="space-y-4">
                 {languages.map((lang, index) => (
                   <motion.div
@@ -87,7 +84,7 @@ export function Skills() {
             </Card>
           </motion.div>
 
-          {/* Programming */}
+          {/* Programming — simple document-style list */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -101,24 +98,18 @@ export function Skills() {
                 </div>
                 <h3 className="text-2xl">Programming</h3>
               </div>
-              
-              <div className="space-y-4">
-                {programmingSkills.map((skill, index) => (
-                  <motion.div
-                    key={skill.name}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                  >
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="font-medium">{skill.name}</span>
-                      <span className="text-sm text-gray-600">{skill.level}%</span>
-                    </div>
-                    <Progress value={skill.level} className="h-2" />
-                  </motion.div>
-                ))}
-              </div>
+          {/* Programming — simple list with dot icons, no boxes */}
+          <ul className="space-y-2">
+            {programmingSkills.map((item) => {
+              const name = typeof item === "string" ? item : item.name;
+              return (
+                <li key={name} className="flex items-center gap-3">
+                  <Dot className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                  <span className="text-sm font-medium">{name}</span>
+                </li>
+          );
+            })}
+          </ul>
             </Card>
           </motion.div>
 
@@ -134,9 +125,9 @@ export function Skills() {
                 <div className="w-12 h-12 rounded-full bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center">
                   <Briefcase className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-2xl">Professional</h3>
+                <h3 className="text-2xl">Abilities</h3>
               </div>
-              
+
               <div className="grid grid-cols-1 gap-3">
                 {professionalSkills.map((skill, index) => (
                   <motion.div

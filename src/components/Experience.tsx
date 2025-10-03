@@ -7,7 +7,7 @@ const experiences = [
     title: "Assembler",
     company: "ABB Electrification",
     location: "Västerås",
-    period: "June 2025 – August 2025",
+    period: "June – August 2025",
     description: [
       "Worked in coil production for conductors, ensuring precision and quality in industrial manufacturing processes",
       "Gained hands-on experience in electrical component assembly and quality control"
@@ -52,7 +52,7 @@ const experiences = [
     title: "Warehouse Worker",
     company: "ICA’s Warehouse (Randstad)",
     location: "Västerås",
-    period: "April – September 2019; Summer 2020; Summer 2021",
+    period: "April – September 2019, Summer 2020, Summer 2021",
     description: [
       "Handled packing and sorting; prepared products for shipping",
       "Executed quality control checks and supported high-volume order processing"
@@ -63,7 +63,7 @@ const experiences = [
     title: "Service Employee",
     company: "Region Västmanland",
     location: "Västerås",
-    period: "January 2019 – April 2019",
+    period: "January – April 2019",
     description: [
       "Performed high-quality cleaning and service tasks at the city’s largest hospital"
     ],

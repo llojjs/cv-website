@@ -7,7 +7,7 @@ const education = [
   {
     degree: "MSc. Industrial Engineering and Management - International, Chinese",
     school: "Linköping University, Sweden",
-    period: "2021-2026",
+    period: "2021-2027",
     details: [
       "Bachelor's Thesis in Computer Engineering: \"MealMate - A study on how to create a web application that is navigable and trustworthy\"",
       "Major Studies: Chinese 2020-2021",
