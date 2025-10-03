@@ -28,7 +28,9 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
           >
-            Industrial Engineer & International Leader with expertise in cross-cultural management and technical innovation
+            4th year M.Sc. Industrial Engineering - 
+            <br />
+            International Chinese at Linköpings University
           </motion.p>
           
           <motion.div 

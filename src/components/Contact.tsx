@@ -150,7 +150,7 @@ export function Contact() {
           className="text-center mt-12 pt-8 border-t border-white/20"
         >
           <p className="text-gray-400">
-            © 2025 Louise Eriksson. Designed with passion for international collaboration.
+           © 2025 Louise Eriksson · Portfolio. All rights reserved.
           </p>
         </motion.div>
       </div>
