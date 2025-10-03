@@ -6,9 +6,10 @@
   // Use dynamic base so GitHub Pages works regardless of repo name
   const repo = process.env.GITHUB_REPOSITORY?.split('/')?.[1];
   const isCI = process.env.GITHUB_ACTIONS === 'true';
+  const explicitBase = process.env.BASE_PATH; // e.g. '/cv-website/'
 
   export default defineConfig({
-    base: isCI && repo ? `/${repo}/` : '/',
+    base: explicitBase || (isCI && repo ? `/${repo}/` : '/'),
     plugins: [react()],
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
