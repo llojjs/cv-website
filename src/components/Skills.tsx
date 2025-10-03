@@ -22,11 +22,14 @@ const programmingSkills = [
   { name: "AMPL"}
 ];
 
+// Map professional skills to a representative Experience job title to scroll to
+// Optional: targetCompanyIncludes helps disambiguate duplicate titles
 const professionalSkills = [
-  "Project Leadership", 
-  "Quality Control",
-  "Event Organization",
-  "Customer Service",
+  { name: "Project Leadership", targetTitle: "Vice President" },
+  { name: "Quality Control", targetTitle: "Assembler" },
+  { name: "Event Organization", targetTitle: "Vice President" },
+  { name: "Customer Service", targetTitle: "Waitress" },
+  { name: "Inventory & Logistics Operations", targetTitle: "Warehouse Worker", targetCompanyIncludes: "Randstad" },
 ];
 
 export function Skills() {
@@ -130,18 +133,49 @@ export function Skills() {
 
               <div className="grid grid-cols-1 gap-3">
                 {professionalSkills.map((skill, index) => (
-                  <motion.div
-                    key={skill}
+                  <motion.button
+                    key={skill.name}
+                    type="button"
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.1 }}
                     viewport={{ once: true }}
                     whileHover={{ scale: 1.05 }}
-                    className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-gray-50 to-white border hover:shadow-md transition-all duration-300 cursor-pointer"
+                    className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-gray-50 to-white border hover:shadow-md transition-all duration-300 cursor-pointer text-left"
+                    aria-label={`Jump to experience related to ${skill.name}`}
+                    onClick={() => {
+                      const headings = Array.from(document.querySelectorAll<HTMLHeadingElement>("h3"));
+                      const candidates = headings.filter(h => (h.textContent || "").trim() === (skill as any).targetTitle);
+                      let container: HTMLElement | null = null;
+
+                      // If provided, disambiguate by company name contained in the same card
+                      const companyNeedle = (skill as any).targetCompanyIncludes as string | undefined;
+                      if (companyNeedle && candidates.length) {
+                        for (const h of candidates) {
+                          const card = h.closest<HTMLElement>(".relative");
+                          if (!card) continue;
+                          const companyEl = card.querySelector<HTMLElement>(".text-emerald-600");
+                          const companyText = (companyEl?.textContent || "").toLowerCase();
+                          if (companyText.includes(companyNeedle.toLowerCase())) {
+                            container = card;
+                            break;
+                          }
+                        }
+                      }
+
+                      if (!container && candidates.length) {
+                        const match = candidates[0];
+                        container = match?.closest<HTMLElement>(".relative");
+                      }
+
+                      if (container) {
+                        container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                      }
+                    }}
                   >
                     <Star className="w-4 h-4 text-yellow-500" />
-                    <span className="text-sm font-medium">{skill}</span>
-                  </motion.div>
+                    <span className="text-sm font-medium">{skill.name}</span>
+                  </motion.button>
                 ))}
               </div>
             </Card>
