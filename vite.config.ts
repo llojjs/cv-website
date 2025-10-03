@@ -3,7 +3,10 @@
   import react from '@vitejs/plugin-react-swc';
   import path from 'path';
 
+  const isProd = process.env.NODE_ENV === 'production';
+
   export default defineConfig({
+    base: isProd ? '/cv-website/' : '/',
     plugins: [react()],
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],

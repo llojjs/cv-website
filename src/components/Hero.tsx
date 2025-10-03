@@ -63,7 +63,7 @@ export function Hero() {
               className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-8 py-3 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300"
             >
               <a
-                href="/cv/LouiseErikssonCV.pdf"
+                href={`${import.meta.env.BASE_URL}cv/LouiseErikssonCV.pdf`}
                 download="LouiseErikssonCV.pdf"
                 aria-label="Download CV as PDF"
               >
