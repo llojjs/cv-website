@@ -6,7 +6,8 @@ const hobbies = [
   {
     title: 'Bouldering',
     description: 'A great way to stay active, challenge myself, and keep a strong focus.',
-    icon: Mountain
+    icon: Mountain,
+    image: `${import.meta.env.BASE_URL}cv/bouldering.jpg`
   },
   {
     title: 'Reading',
@@ -56,6 +57,15 @@ export function Hobbies() {
                   </div>
                   <h3 className="mb-3 text-center text-xl font-semibold">{hobby.title}</h3>
                   <p className="text-center text-gray-600 leading-relaxed">{hobby.description}</p>
+                  {hobby.image ? (
+                    <div className="mt-5 overflow-hidden rounded-xl">
+                      <img
+                        src={hobby.image}
+                        alt={hobby.title}
+                        className="h-48 w-full object-cover rounded-xl"
+                      />
+                    </div>
+                  ) : null}
                 </Card>
               </motion.div>
             );
