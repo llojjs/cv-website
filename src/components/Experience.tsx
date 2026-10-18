@@ -29,26 +29,16 @@ const formatDateRange = (startDate: string, endDate: string) => {
 const experiences = [
   {
     title: "Production & Manufacturing Intern",
-    company: "ABB",
-    location: "Västerås, Sweden",
-    startDate: "2026-06",
-    endDate: "2026-08",
-    description: [
-      "Produced copper coils for industrial contactors, ensuring manufacturing quality standards.",
-      "Combined hands-on production with continuous improvement work.",
-      "Developed standardized work instructions and improved machine documentation.",
-      "Collaborated with production personnel to identify opportunities for process improvement and optimize machine workflows."
-    ],
-    color: "from-blue-500 to-cyan-500"
-  },
-  {
-    title: "Operator",
     company: "ABB Electrification",
     location: "Västerås, Sweden",
     startDate: "2025-06",
-    endDate: "2025-08",
+    endDate: "2026-08",
+    displayDate: "Summer 2025 & 2026",
     description: [
-      "Worked in the manufacturing of electrical coils and components, with a focus on precision, product quality and industrial production processes."
+      "Worked at ABB for two consecutive summers as a production and manufacturing intern in the electrical components manufacturing environment.",
+      "Produced copper coils for industrial contactors, ensuring manufacturing quality standards and process reliability.",
+      "Combined hands-on production work with continuous improvement and documentation of standardized work instructions.",
+      "Collaborated with production personnel to optimize workflows and identify improvements in machine operations and process efficiency."
     ],
     color: "from-blue-500 to-cyan-500"
   },
@@ -178,7 +168,7 @@ export function Experience() {
                     <div className="flex flex-col md:text-right text-gray-600">
                       <div className="flex items-center gap-2 mb-1">
                         <Calendar className="w-4 h-4" />
-                        <span>{formatDateRange(exp.startDate, exp.endDate)}</span>
+                        <span>{exp.displayDate ?? formatDateRange(exp.startDate, exp.endDate)}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <MapPin className="w-4 h-4" />
