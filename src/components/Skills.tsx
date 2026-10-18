@@ -1,182 +1,223 @@
 import { motion } from 'motion/react';
-import { Code, Languages, Briefcase, Star, Dot } from 'lucide-react';
+import {
+  BarChart3,
+  BriefcaseBusiness,
+  Code2,
+  Languages,
+  PackageCheck,
+  UsersRound,
+} from 'lucide-react';
 import { Card } from './ui/card';
-import { Progress } from './ui/progress';
 
 const languages = [
-  { name: "Swedish", level: "Native", progress: 100 },
-  { name: "English", level: "Fluent", progress: 95 },
-  { name: "Mandarin Chinese (HSK4)", level: "Conversational", progress: 50 },
-  { name: "German", level: "Conversational", progress: 50 },
-  { name: "Korean", level: "Basic", progress: 20 }
+  { name: 'Swedish', level: 'Native', progress: 100 },
+  { name: 'English', level: 'Fluent', progress: 100 },
+  { name: 'Mandarin Chinese (HSK4)', level: 'Conversational', progress: 50 },
+  { name: 'German', level: 'Conversational', progress: 50 },
+  { name: 'Korean', level: 'Basic', progress: 20 },
 ];
 
-const programmingSkills = [
-  { name: "JavaScript"},
-  { name: "TypeScript"},
-  { name: "Python"},
-  { name: "HTML/CSS"},
-  { name: "R"},
-  { name: "Java"},
-  { name: "ADA-95"},
-  { name: "AMPL"}
+const technicalSkillGroups = [
+  {
+    title: 'Programming & Web Development',
+    skills: ['Python', 'Java', 'JavaScript', 'TypeScript', 'HTML/CSS', 'Ada-95'],
+  },
+  { title: 'Data & Optimization', skills: ['R', 'AMPL'] },
+  { title: 'Hardware & Systems', skills: ['VHDL'] },
 ];
 
-// Map professional skills to a representative Experience job title to scroll to
-// Optional: targetCompanyIncludes helps disambiguate duplicate titles
-const professionalSkills = [
-  { name: "Project Leadership", targetTitle: "Vice President" },
-  { name: "Quality Control", targetTitle: "Assembler" },
-  { name: "Event Organization", targetTitle: "Vice President" },
-  { name: "Customer Service", targetTitle: "Waitress" },
-  { name: "Inventory & Logistics Operations", targetTitle: "Warehouse Worker", targetCompanyIncludes: "Randstad" },
+const coreCompetencyGroups = [
+  {
+    title: 'Business & Strategy',
+    icon: BarChart3,
+    skills: ['Market Analysis', 'Business Development', 'Strategic Planning'],
+  },
+  {
+    title: 'Leadership & Communication',
+    icon: UsersRound,
+    skills: ['Project Leadership', 'Event Organization', 'Cross-Cultural Communication'],
+  },
+  {
+    title: 'Operations & Quality',
+    icon: PackageCheck,
+    skills: ['Quality Control', 'Inventory & Logistics Operations', 'Customer Service'],
+  },
 ];
 
 export function Skills() {
   return (
-    <section className="py-20 px-4 bg-gradient-to-br from-gray-50 to-emerald-50">
-      <div className="max-w-6xl mx-auto">
+    <section className="bg-gradient-to-br from-gray-50 to-emerald-50 px-4 py-20">
+      <div className="mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="mb-12 text-center"
         >
-          <h2 className="text-4xl mb-4 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+          <h2 className="mb-4 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-4xl text-transparent">
             Skills & Expertise
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-xl text-gray-600">
             A diverse skill set combining technical expertise with international communication abilities
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Languages */}
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:items-stretch">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
+            className="h-full"
           >
-            <Card className="p-6 h-full">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-500 to-teal-500 flex items-center justify-center">
-                  <Languages className="w-6 h-6 text-white" />
+            <Card className="flex h-full flex-col p-6">
+              <div className="mb-6 flex items-center gap-3">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-green-500 to-teal-500">
+                  <Languages className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="text-2xl">Languages</h3>
+                <h3 className="text-2xl font-semibold text-slate-800">Languages</h3>
               </div>
 
-              <div className="space-y-4">
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 {languages.map((lang, index) => (
                   <motion.div
                     key={lang.name}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 18 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
+                    transition={{ delay: index * 0.08 }}
                     viewport={{ once: true }}
+                    style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}
                   >
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="font-medium">{lang.name}</span>
-                      <span className="text-sm text-gray-600">{lang.level}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
+                      <span style={{ fontSize: '0.875rem', fontWeight: 500, color: '#334155' }}>{lang.name}</span>
+                      <span style={{ fontSize: '0.75rem', fontWeight: 500, color: '#64748b' }}>{lang.level}</span>
                     </div>
-                    <Progress value={lang.progress} className="h-2" />
+                    <div
+                      style={{
+                        height: '10px',
+                        width: '100%',
+                        overflow: 'hidden',
+                        borderRadius: '9999px',
+                        backgroundColor: '#e5e7eb',
+                      }}
+                    >
+                      <div
+                        style={{
+                          height: '100%',
+                          width: `${lang.progress}%`,
+                          borderRadius: '9999px',
+                          background: 'linear-gradient(90deg, #10b981 0%, #14b8a6 100%)',
+                        }}
+                      />
+                    </div>
                   </motion.div>
                 ))}
               </div>
             </Card>
           </motion.div>
 
-          {/* Programming — simple document-style list */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
+            className="h-full"
           >
-            <Card className="p-6 h-full">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 flex items-center justify-center">
-                  <Code className="w-6 h-6 text-white" />
+            <Card className="flex h-full flex-col p-6">
+              <div className="mb-6 flex items-center gap-3">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-emerald-500 to-teal-500">
+                  <Code2 className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="text-2xl">Programming</h3>
+                <h3 className="text-2xl font-semibold text-slate-800">Technical Skills</h3>
               </div>
-          {/* Programming — simple list with dot icons, no boxes */}
-          <ul className="space-y-2">
-            {programmingSkills.map((item) => {
-              const name = typeof item === "string" ? item : item.name;
-              return (
-                <li key={name} className="flex items-center gap-3">
-                  <Dot className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                  <span className="text-sm font-medium">{name}</span>
-                </li>
-          );
-            })}
-          </ul>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                {technicalSkillGroups.map((group) => (
+                  <div key={group.title} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <h4 style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#334155', letterSpacing: '0.01em' }}>
+                      {group.title}
+                    </h4>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                      {group.skills.map((skill) => (
+                        <span
+                          key={skill}
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            backgroundColor: '#f3f4f6',
+                            color: '#374151',
+                            borderRadius: '9999px',
+                            padding: '6px 12px',
+                            fontSize: '0.75rem',
+                            fontWeight: 500,
+                            lineHeight: 1.2,
+                            border: '1px solid #e5e7eb',
+                          }}
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </Card>
           </motion.div>
 
-          {/* Professional Skills */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
+            className="h-full"
           >
-            <Card className="p-6 h-full">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center">
-                  <Briefcase className="w-6 h-6 text-white" />
+            <Card className="flex h-full flex-col p-6">
+              <div className="mb-6 flex items-center gap-3">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-emerald-500 to-green-600">
+                  <BriefcaseBusiness className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="text-2xl">Abilities</h3>
+                <h3 className="text-2xl font-semibold text-slate-800">Core Competencies</h3>
               </div>
 
-              <div className="grid grid-cols-1 gap-3">
-                {professionalSkills.map((skill, index) => (
-                  <motion.button
-                    key={skill.name}
-                    type="button"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    whileHover={{ scale: 1.05 }}
-                    className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-gray-50 to-white border hover:shadow-md transition-all duration-300 cursor-pointer text-left"
-                    aria-label={`Jump to experience related to ${skill.name}`}
-                    onClick={() => {
-                      const headings = Array.from(document.querySelectorAll<HTMLHeadingElement>("h3"));
-                      const candidates = headings.filter(h => (h.textContent || "").trim() === (skill as any).targetTitle);
-                      let container: HTMLElement | null = null;
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                {coreCompetencyGroups.map((group) => {
+                  const Icon = group.icon;
 
-                      // If provided, disambiguate by company name contained in the same card
-                      const companyNeedle = (skill as any).targetCompanyIncludes as string | undefined;
-                      if (companyNeedle && candidates.length) {
-                        for (const h of candidates) {
-                          const card = h.closest<HTMLElement>(".relative");
-                          if (!card) continue;
-                          const companyEl = card.querySelector<HTMLElement>(".text-emerald-600");
-                          const companyText = (companyEl?.textContent || "").toLowerCase();
-                          if (companyText.includes(companyNeedle.toLowerCase())) {
-                            container = card;
-                            break;
-                          }
-                        }
-                      }
+                  return (
+                    <div key={group.title} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: '28px',
+                            height: '28px',
+                            borderRadius: '8px',
+                            backgroundColor: '#ecfdf5',
+                            color: '#10b981',
+                            flexShrink: 0,
+                          }}
+                        >
+                          <Icon style={{ width: '14px', height: '14px' }} />
+                        </div>
+                        <h4 style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#334155' }}>
+                          {group.title}
+                        </h4>
+                      </div>
 
-                      if (!container && candidates.length) {
-                        const match = candidates[0];
-                        container = match?.closest<HTMLElement>(".relative");
-                      }
-
-                      if (container) {
-                        container.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                      }
-                    }}
-                  >
-                    <Star className="w-4 h-4 text-yellow-500" />
-                    <span className="text-sm font-medium">{skill.name}</span>
-                  </motion.button>
-                ))}
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '0.8125rem', lineHeight: 1.5, color: '#475569' }}>
+                        {group.skills.map((skill) => (
+                          <div key={skill} style={{ wordBreak: 'break-word', textAlign: 'left' }}>
+                            {skill}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </Card>
           </motion.div>

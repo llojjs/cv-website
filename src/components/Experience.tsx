@@ -2,82 +2,133 @@ import { motion } from 'motion/react';
 import { Calendar, MapPin, ArrowRight } from 'lucide-react';
 import { Card } from './ui/card';
 
+const monthLabels: Record<string, string> = {
+  '01': 'January',
+  '02': 'February',
+  '03': 'March',
+  '04': 'April',
+  '05': 'May',
+  '06': 'June',
+  '07': 'July',
+  '08': 'August',
+  '09': 'September',
+  '10': 'October',
+  '11': 'November',
+  '12': 'December'
+};
+
+const formatDateRange = (startDate: string, endDate: string) => {
+  const format = (value: string) => {
+    const [year, month] = value.split('-');
+    return `${monthLabels[month] ?? month} ${year}`;
+  };
+
+  return `${format(startDate)} – ${format(endDate)}`;
+};
+
 const experiences = [
   {
-    title: "Assembler",
-    company: "ABB Electrification",
-    location: "Västerås",
-    period: "June – August 2025",
+    title: "Production & Manufacturing Intern",
+    company: "ABB",
+    location: "Västerås, Sweden",
+    startDate: "2026-06",
+    endDate: "2026-08",
     description: [
-      "Worked in coil production for conductors, ensuring precision and quality in industrial manufacturing processes",
-      "Gained hands-on experience in electrical component assembly and quality control"
+      "Produced copper coils for industrial contactors, ensuring manufacturing quality standards.",
+      "Combined hands-on production with continuous improvement work.",
+      "Developed standardized work instructions and improved machine documentation.",
+      "Collaborated with production personnel to identify opportunities for process improvement and optimize machine workflows."
     ],
     color: "from-blue-500 to-cyan-500"
   },
   {
-    title: "Vice President",
-    company: "The East Asian Association, Linköping University",
-    location: "Linköping",
-    period: "August 2022 – August 2023",
+    title: "Operator",
+    company: "ABB Electrification",
+    location: "Västerås, Sweden",
+    startDate: "2025-06",
+    endDate: "2025-08",
     description: [
-      "Organized cultural events, language cafés, and film festivals to foster cross-cultural exchange",
-      "Led planning of formal dinners and built partnerships with organizations",
-      "Mentored new executive members to ensure leadership continuity"
+      "Worked in the manufacturing of electrical coils and components, with a focus on precision, product quality and industrial production processes."
     ],
-    color: "from-purple-500 to-pink-500"
+    color: "from-blue-500 to-cyan-500"
   },
   {
-    title: "Warehouse Worker",
-    company: "KG Knutsson’s Warehouse (Eterni)",
-    location: "Enköping",
-    period: "Summer 2023",
+    title: "Store Associate",
+    company: "AutoMat",
+    location: "Linköping, Sweden",
+    startDate: "2023-08",
+    endDate: "2024-06",
     description: [
-      "Performed packing, sorting, and post-sorting quality checks",
-      "Maintained accurate inventory handling and met daily productivity targets"
-    ],
-    color: "from-amber-500 to-orange-500"
-  },
-  {
-    title: "Service Staff",
-    company: "Villevalla Pub",
-    location: "Linköping",
-    period: "June 2020 – June 2023",
-    description: [
-      "Worked in a fast-paced kitchen and bar, ensuring timely, high-quality service",
-      "Trained new staff on operations, safety protocols, and customer service"
+      "Restocked and organized products, maintained the store environment, monitored expiration dates and supported product quality control and customer service."
     ],
     color: "from-green-500 to-teal-500"
   },
   {
     title: "Warehouse Worker",
-    company: "ICA’s Warehouse (Randstad)",
-    location: "Västerås",
-    period: "April – September 2019, Summer 2020, Summer 2021",
+    company: "KG Knutsson",
+    location: "Enköping, Sweden",
+    startDate: "2023-06",
+    endDate: "2023-08",
     description: [
-      "Handled packing and sorting; prepared products for shipping",
-      "Executed quality control checks and supported high-volume order processing"
+      "Packed and sorted products, prepared orders for shipment and performed quality checks to ensure accurate handling and product condition."
     ],
     color: "from-orange-500 to-red-500"
   },
   {
+    title: "Waitress / Chef",
+    company: "VilleValla Pub",
+    location: "Linköping, Sweden",
+    startDate: "2020-10",
+    endDate: "2023-05",
+    description: [
+      "Worked in restaurant service and food preparation in a fast-paced environment, handling customer requests and day-to-day operational challenges."
+    ],
+    color: "from-emerald-500 to-green-600"
+  },
+  {
+    title: "Warehouse Worker / Forklift Operator",
+    company: "ICA Gruppen",
+    location: "Västerås, Sweden",
+    startDate: "2019-04",
+    endDate: "2019-09",
+    description: [
+      "Operated forklifts and handled warehouse logistics at the ICA DE distribution warehouse."
+    ],
+    color: "from-amber-500 to-orange-500"
+  },
+  {
     title: "Service Employee",
     company: "Region Västmanland",
-    location: "Västerås",
-    period: "January – April 2019",
+    location: "Västerås, Sweden",
+    startDate: "2019-01",
+    endDate: "2019-04",
     description: [
-      "Performed high-quality cleaning and service tasks at the city’s largest hospital"
+      "Performed cleaning and facility services in a hospital environment, following quality and hygiene requirements."
     ],
     color: "from-slate-500 to-gray-500"
   },
   {
     title: "Waitress",
     company: "Pizza Hut Sverige",
-    location: "Västerås",
-    period: "August 2018 – January 2019",
+    location: "Västerås, Sweden",
+    startDate: "2018-08",
+    endDate: "2019-01",
     description: [
-      "Delivered customer-focused service, handled orders and payments, and supported a busy dine-in environment"
+      "Provided restaurant service with an emphasis on customer satisfaction, communication and efficient service."
     ],
     color: "from-rose-500 to-red-500"
+  },
+  {
+    title: "Vice President",
+    company: "East Asian Association LiU",
+    location: "Linköping, Sweden",
+    startDate: "2022-08",
+    endDate: "2023-08",
+    description: [
+      "Organized cultural events, language cafés, film screenings and formal dinners.",
+      "Developed partnerships with student organizations, mentored new board members and supported leadership transitions."
+    ],
+    color: "from-purple-500 to-pink-500"
   }
 ];
 
@@ -127,7 +178,7 @@ export function Experience() {
                     <div className="flex flex-col md:text-right text-gray-600">
                       <div className="flex items-center gap-2 mb-1">
                         <Calendar className="w-4 h-4" />
-                        <span>{exp.period}</span>
+                        <span>{formatDateRange(exp.startDate, exp.endDate)}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <MapPin className="w-4 h-4" />

@@ -28,7 +28,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
           >
-            4th year M.Sc. Industrial Engineering - 
+            5th year M.Sc. Industrial Engineering - 
             <br />
             International Chinese at Linköpings University
           </motion.p>

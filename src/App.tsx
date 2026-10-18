@@ -1,11 +1,49 @@
 import { motion } from 'motion/react';
+import { useEffect, useState } from 'react';
 import { Hero } from './components/Hero';
 import { Experience } from './components/Experience';
 import { Education } from './components/Education';
 import { Skills } from './components/Skills';
+import { Hobbies } from './components/Hobbies';
 import { Contact } from './components/Contact';
 
+const sections = [
+  { id: 'hero', label: 'About' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'education', label: 'Education' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'hobbies', label: 'Hobbies' },
+  { id: 'contact', label: 'Contact' }
+];
+
 export default function App() {
+  const [activeSection, setActiveSection] = useState('hero');
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntry = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visibleEntry) {
+          setActiveSection(visibleEntry.target.id);
+        }
+      },
+      {
+        root: null,
+        threshold: [0.35, 0.6, 0.8]
+      }
+    );
+
+    sections.forEach(({ id }) => {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="min-h-screen">
       {/* Navigation dots for smooth scrolling */}
@@ -16,29 +54,44 @@ export default function App() {
         transition={{ delay: 1 }}
       >
         <div className="flex flex-col gap-4">
-          {[
-            { id: 'hero', label: 'About' },
-            { id: 'experience', label: 'Experience' },
-            { id: 'education', label: 'Education' },
-            { id: 'skills', label: 'Skills' },
-            { id: 'contact', label: 'Contact' }
-          ].map((section, index) => (
-            <motion.div key={section.id} className="relative group">
-              <motion.button
-                onClick={() => document.getElementById(section.id)?.scrollIntoView({ behavior: 'smooth' })}
-                className="w-3 h-3 rounded-full border-2 border-emerald-500 bg-transparent hover:bg-emerald-500 transition-all duration-300"
-                whileHover={{ scale: 1.5 }}
-                whileTap={{ scale: 0.9 }}
-              />
-              <motion.div
-                className="absolute right-6 top-1/2 -translate-y-1/2 bg-gray-900 text-white px-3 py-1 rounded-md text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap"
-                initial={{ opacity: 0, x: 10 }}
-                whileHover={{ opacity: 1, x: 0 }}
+          {sections.map((section) => {
+            const isActive = activeSection === section.id;
+
+            return (
+              <div
+                key={section.id}
+                className="grid items-center"
+                style={{
+                  gridTemplateColumns: '100px 16px',
+                  columnGap: '12px'
+                }}
               >
-                {section.label}
-              </motion.div>
-            </motion.div>
-          ))}
+                <span
+                  className={[
+                    'text-right text-[10px] font-medium uppercase tracking-[0.2em] whitespace-nowrap transition-colors duration-200',
+                    isActive ? 'text-emerald-700 font-semibold' : 'text-gray-500'
+                  ].join(' ')}
+                >
+                  {section.label}
+                </span>
+
+                <motion.button
+                  onClick={() => document.getElementById(section.id)?.scrollIntoView({ behavior: 'smooth' })}
+                  className={[
+                    'w-4 h-4 rounded-full border-2 border-emerald-500 box-border transition-all duration-200 justify-self-center',
+                    isActive ? '' : 'hover:bg-emerald-500/80'
+                  ].join(' ')}
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                  aria-label={`Scroll to ${section.label}`}
+                  style={{
+                    boxSizing: 'border-box',
+                    backgroundColor: isActive ? '#10b981' : 'transparent'
+                  }}
+                />
+              </div>
+            );
+          })}
         </div>
       </motion.nav>
 
@@ -58,6 +111,10 @@ export default function App() {
         
         <section id="skills">
           <Skills />
+        </section>
+
+        <section id="hobbies">
+          <Hobbies />
         </section>
         
         <section id="contact">
