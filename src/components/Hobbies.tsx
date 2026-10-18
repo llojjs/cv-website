@@ -39,7 +39,7 @@ export function Hobbies() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {hobbies.map((hobby, index) => {
             const Icon = hobby.icon;
             return (
@@ -50,12 +50,12 @@ export function Hobbies() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <Card className="h-full p-6 hover:shadow-xl transition-all duration-300">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 flex items-center justify-center mb-5">
-                    <Icon className="w-7 h-7 text-white" />
+                <Card className="h-full border-0 bg-transparent p-0 shadow-none hover:shadow-none">
+                  <div className="mb-5 flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 shadow-md ring-4 ring-emerald-50 mx-auto">
+                    <Icon className="h-7 w-7 text-white" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-3">{hobby.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{hobby.description}</p>
+                  <h3 className="mb-3 text-center text-xl font-semibold">{hobby.title}</h3>
+                  <p className="text-center text-gray-600 leading-relaxed">{hobby.description}</p>
                 </Card>
               </motion.div>
             );
