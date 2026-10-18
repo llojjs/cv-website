@@ -3,13 +3,8 @@
   import react from '@vitejs/plugin-react-swc';
   import path from 'path';
 
-  // Use dynamic base so GitHub Pages works regardless of repo name
-  const repo = process.env.GITHUB_REPOSITORY?.split('/')?.[1];
-  const isCI = process.env.GITHUB_ACTIONS === 'true';
-  const explicitBase = process.env.BASE_PATH; // e.g. '/cv-website/'
-
   export default defineConfig({
-    base: explicitBase || (isCI && repo ? `/${repo}/` : '/'),
+    base: '/cv-website/',
     plugins: [react()],
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
@@ -58,7 +53,7 @@
     },
     build: {
       target: 'esnext',
-      outDir: 'build',
+      outDir: 'dist',
     },
     server: {
       port: 3000,
