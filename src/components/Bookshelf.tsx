@@ -98,7 +98,9 @@ export function Bookshelf({ books = exampleBooks }: BookshelfProps) {
                             whiteSpace: 'nowrap',
                             fontSize: book.spineVariant === 'in-praise-of-shadows' ? '8px' : book.spineVariant === 'blue-sisters' ? '10px' : '10px',
                             lineHeight: 1,
-                            letterSpacing: '0.02em',
+                            fontFamily: book.spineVariant === 'blue-sisters' ? '"Bodoni Moda", serif' : book.spineVariant === 'chip-war' ? '"Archivo Black", sans-serif' : undefined,
+                            fontWeight: book.spineVariant === 'blue-sisters' ? 700 : book.spineVariant === 'chip-war' ? 900 : undefined,
+                            letterSpacing: book.spineVariant === 'chip-war' ? '-0.02em' : '0.01em',
                             transform: 'translate(-50%, -50%)',
                             color: book.spineVariant === 'in-praise-of-shadows' ? '#ffffff' : book.spineVariant === 'blue-sisters' ? '#2f6db3' : '#b68b2c'
                           }}
