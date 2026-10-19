@@ -49,9 +49,11 @@ export function Bookshelf({ books = exampleBooks }: BookshelfProps) {
                   <button
                     key={book.title}
                     type="button"
-                    className="relative flex shrink-0 items-center justify-center rounded-t-sm border border-black/10 px-1 shadow-sm transition-transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+                    className={`relative flex shrink-0 items-center justify-center rounded-t-sm border px-1 shadow-sm transition-transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 ${
+                      book.spineVariant ? 'border-black/40' : 'border-black/10'
+                    }`}
                     style={{
-                      backgroundColor: book.color,
+                      backgroundColor: book.spineVariant === 'chip-war' ? '#f7f3e8' : book.spineVariant === 'in-praise-of-shadows' ? '#111111' : book.spineVariant === 'blue-sisters' ? '#ffffff' : book.color,
                       height: book.height,
                       width: book.spineImage && spineRatios[book.title]
                         ? getSpineWidth(book.height, spineRatios[book.title])
@@ -81,19 +83,67 @@ export function Bookshelf({ books = exampleBooks }: BookshelfProps) {
                           transform: book.rotateSpine ? `rotate(${book.rotateSpine}deg)` : undefined
                         }}
                       />
+                    ) : book.spineVariant ? (
+                      <span
+                        className="relative flex h-full w-full items-center justify-center overflow-hidden"
+                        style={{ backgroundColor: book.spineVariant === 'in-praise-of-shadows' ? '#111111' : book.spineVariant === 'blue-sisters' ? '#ffffff' : '#f7f3e8' }}
+                      >
+                        <span
+                          className={`font-extrabold ${book.spineVariant === 'in-praise-of-shadows' ? 'text-white' : book.spineVariant === 'blue-sisters' ? 'text-[#2f6db3]' : 'text-[#b68b2c]'}`}
+                          style={{
+                            position: 'absolute',
+                            top: '36%',
+                            left: '50%',
+                            writingMode: 'vertical-rl',
+                            whiteSpace: 'nowrap',
+                            fontSize: book.spineVariant === 'in-praise-of-shadows' ? '8px' : book.spineVariant === 'blue-sisters' ? '10px' : '10px',
+                            lineHeight: 1,
+                            letterSpacing: '0.02em',
+                            transform: 'translate(-50%, -50%)',
+                            color: book.spineVariant === 'in-praise-of-shadows' ? '#ffffff' : book.spineVariant === 'blue-sisters' ? '#2f6db3' : '#b68b2c'
+                          }}
+                        >
+                          {book.spineTitle ?? book.title}
+                        </span>
+                        {book.spineVariant ? (
+                          <span
+                          className={`absolute text-center font-semibold ${book.spineVariant === 'in-praise-of-shadows' ? 'text-white' : book.spineVariant === 'blue-sisters' ? 'text-[#9a7b36]' : 'text-[#174c4b]'}`}
+                          style={{
+                            left: 0,
+                            bottom: '10px',
+                            right: 0,
+                            width: '100%',
+                            fontSize: '4px',
+                            lineHeight: 1.1,
+                            transform: 'none',
+                            writingMode: 'horizontal-tb',
+                            whiteSpace: 'normal',
+                            color: book.spineVariant === 'in-praise-of-shadows' ? '#ffffff' : book.spineVariant === 'blue-sisters' ? '#9a7b36' : '#174c4b'
+                          }}
+                          >
+                            <span className="block whitespace-nowrap">{book.author.trim().split(/\s+/).slice(0, -1).join(' ')}</span>
+                            <span className="block whitespace-nowrap">{book.author.trim().split(/\s+/).at(-1)}</span>
+                          </span>
+                        ) : null}
+                      </span>
                     ) : (
                       <span
-                        className="flex max-h-full max-w-full items-center justify-center overflow-hidden text-center font-semibold tracking-wide text-white/90"
+                        className={`flex max-h-full max-w-full items-center justify-center overflow-hidden text-center font-semibold tracking-wide ${
+                          book.spineVariant === 'chip-war' ? 'text-[#b68b2c]' : 'text-white/90'
+                        }`}
                         style={{
                           writingMode: 'vertical-rl',
                           textOrientation: 'mixed',
                           whiteSpace: 'nowrap',
-                          fontSize: book.title.length > 20 ? '8px' : '10px',
+                          maxHeight: 'calc(100% - 4px)',
+                          fontSize: book.title.length > 30 ? '6px' : book.title.length > 20 ? '8px' : '10px',
+                          fontWeight: book.spineVariant === 'chip-war' ? 800 : 600,
                           lineHeight: 1,
-                          transform: `rotate(180deg) scaleY(${Math.min(1, 14 / book.title.length)})`
+                          letterSpacing: book.spineVariant === 'chip-war' ? '0.02em' : undefined,
+                          textOverflow: 'clip'
                         }}
                       >
-                        {book.title}
+                        {book.spineTitle ?? book.title}
                       </span>
                     )}
                   </button>
@@ -177,10 +227,12 @@ export function Bookshelf({ books = exampleBooks }: BookshelfProps) {
                       </div>
                     </div>
 
-                    <div>
-                      <p className="font-semibold text-gray-800">Date read</p>
-                      <p className="mt-1 text-gray-600">{selectedBook.dateRead}</p>
-                    </div>
+                    {selectedBook.dateRead ? (
+                      <div>
+                        <p className="font-semibold text-gray-800">Date read</p>
+                        <p className="mt-1 text-gray-600">{selectedBook.dateRead}</p>
+                      </div>
+                    ) : null}
 
                     <div>
                       <p className="font-semibold text-gray-800">My Thoughts</p>
