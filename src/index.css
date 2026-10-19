@@ -132,6 +132,26 @@
   }
 }
 
+@keyframes bookshelf-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.bookshelf-modal-fade-in {
+  animation: bookshelf-fade-in 180ms ease-out;
+}
+
+@media (min-width: 640px) {
+  .bookshelf-modal-content {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  }
+}
+
 @layer base {
   *, :after, :before, ::backdrop {
     box-sizing: border-box;
