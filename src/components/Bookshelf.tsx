@@ -48,19 +48,30 @@ export function Bookshelf({ books = exampleBooks }: BookshelfProps) {
                     aria-label={`Open ${book.title}`}
                     onClick={() => setSelectedBook(book)}
                   >
-                    <span
-                      className="flex max-h-full max-w-full items-center justify-center overflow-hidden text-center font-semibold tracking-wide text-white/90"
-                      style={{
-                        writingMode: 'vertical-rl',
-                        textOrientation: 'mixed',
-                        whiteSpace: 'nowrap',
-                        fontSize: book.title.length > 20 ? '8px' : '10px',
-                        lineHeight: 1,
-                        transform: `rotate(180deg) scaleY(${Math.min(1, 14 / book.title.length)})`
-                      }}
-                    >
-                      {book.title}
-                    </span>
+                    {book.spineImage ? (
+                      <span className="flex h-full w-full items-center justify-center overflow-hidden">
+                        <img
+                          src={book.spineImage}
+                          alt={`${book.title} spine`}
+                          className="max-h-full max-w-full object-contain"
+                          style={{ transform: book.spineImageRotation ? `rotate(${book.spineImageRotation}deg)` : undefined }}
+                        />
+                      </span>
+                    ) : (
+                      <span
+                        className="flex max-h-full max-w-full items-center justify-center overflow-hidden text-center font-semibold tracking-wide text-white/90"
+                        style={{
+                          writingMode: 'vertical-rl',
+                          textOrientation: 'mixed',
+                          whiteSpace: 'nowrap',
+                          fontSize: book.title.length > 20 ? '8px' : '10px',
+                          lineHeight: 1,
+                          transform: `rotate(180deg) scaleY(${Math.min(1, 14 / book.title.length)})`
+                        }}
+                      >
+                        {book.title}
+                      </span>
+                    )}
                   </button>
                 ))}
               </div>
@@ -108,8 +119,13 @@ export function Bookshelf({ books = exampleBooks }: BookshelfProps) {
                 </button>
 
                 <div className="flex min-h-48 items-center justify-center rounded-xl border border-dashed border-emerald-200 bg-emerald-50/50 text-sm font-medium text-emerald-700 sm:min-h-56">
-                  {selectedBook.cover ? (
-                    <img src={selectedBook.cover} alt={`Cover of ${selectedBook.title}`} className="h-full w-full rounded-xl object-cover" />
+                  {selectedBook.coverImage ? (
+                    <img
+                      src={selectedBook.coverImage}
+                      alt={`Cover of ${selectedBook.title}`}
+                      className="max-h-56 max-w-full rounded-xl object-contain"
+                      style={{ objectFit: 'contain' }}
+                    />
                   ) : (
                     <span>Book cover placeholder</span>
                   )}
