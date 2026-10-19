@@ -223,7 +223,6 @@ export function Bookshelf({ books = exampleBooks }: BookshelfProps) {
                             aria-hidden="true"
                           />
                         ))}
-                        <span className="ml-1 text-xs text-gray-500">Sample rating</span>
                       </div>
                     </div>
 
