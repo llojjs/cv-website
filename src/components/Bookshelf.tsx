@@ -38,7 +38,7 @@ export function Bookshelf({ books = exampleBooks }: BookshelfProps) {
 
           return (
             <div key={`shelf-${shelfIndex}`} className="mb-6 last:mb-0">
-              <div className="flex h-44 items-end justify-center gap-1.5 px-3">
+              <div className="flex h-44 items-end justify-center gap-1.5 px-3" style={{ alignItems: 'flex-end' }}>
                 {shelfBooks.map((book) => (
                   <button
                     key={book.title}
@@ -64,7 +64,10 @@ export function Bookshelf({ books = exampleBooks }: BookshelfProps) {
                   </button>
                 ))}
               </div>
-              <div className="h-2 rounded-sm bg-gradient-to-b from-amber-700 to-amber-900 shadow-md" />
+              <div
+                className="h-2 rounded-sm bg-gradient-to-b from-amber-700 to-amber-900 shadow-md"
+                style={{ width: '100%', height: '8px', marginTop: 0, background: 'linear-gradient(to bottom, #b08a5b, #7f5a36)' }}
+              />
             </div>
           );
         })}
@@ -82,7 +85,13 @@ export function Bookshelf({ books = exampleBooks }: BookshelfProps) {
             >
               <div
                 className="bookshelf-modal-content relative grid grid-cols-1 gap-6 rounded-2xl bg-white p-6 shadow-2xl sm:gap-7 sm:p-8"
-                style={{ maxWidth: '550px', width: '90vw' }}
+                style={{
+                  maxWidth: '550px',
+                  width: '90vw',
+                  position: 'relative',
+                  borderRadius: '16px',
+                  boxShadow: '0 20px 45px rgba(15, 23, 42, 0.16)'
+                }}
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="book-dialog-title"
@@ -92,6 +101,7 @@ export function Bookshelf({ books = exampleBooks }: BookshelfProps) {
                   type="button"
                   onClick={() => setSelectedBook(null)}
                   className="absolute right-4 top-4 rounded-full p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  style={{ position: 'absolute', top: '16px', right: '16px' }}
                   aria-label="Close book details"
                 >
                   <X className="h-5 w-5" />
