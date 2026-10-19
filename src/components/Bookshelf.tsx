@@ -9,8 +9,14 @@ type BookshelfProps = {
 
 const BOOKS_PER_SHELF = 5;
 
+function getSpineWidth(height: string, ratio: number) {
+  const match = height.match(/^([\d.]+)(rem|px)$/);
+  return match ? `${Number(match[1]) * ratio}${match[2]}` : undefined;
+}
+
 export function Bookshelf({ books = exampleBooks }: BookshelfProps) {
   const [selectedBook, setSelectedBook] = useState<BookshelfBook | null>(null);
+  const [spineRatios, setSpineRatios] = useState<Record<string, number>>({});
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -44,19 +50,37 @@ export function Bookshelf({ books = exampleBooks }: BookshelfProps) {
                     key={book.title}
                     type="button"
                     className="relative flex shrink-0 items-center justify-center rounded-t-sm border border-black/10 px-1 shadow-sm transition-transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
-                    style={{ backgroundColor: book.color, height: book.height, width: book.width }}
+                    style={{
+                      backgroundColor: book.color,
+                      height: book.height,
+                      width: book.spineImage && spineRatios[book.title]
+                        ? getSpineWidth(book.height, spineRatios[book.title])
+                        : book.width,
+                      padding: book.spineImage ? 0 : undefined,
+                      borderWidth: book.spineImage ? 0 : undefined
+                    }}
                     aria-label={`Open ${book.title}`}
                     onClick={() => setSelectedBook(book)}
                   >
                     {book.spineImage ? (
-                      <span className="flex h-full w-full items-center justify-center overflow-hidden">
-                        <img
-                          src={book.spineImage}
-                          alt={`${book.title} spine`}
-                          className="max-h-full max-w-full object-contain"
-                          style={{ transform: book.spineImageRotation ? `rotate(${book.spineImageRotation}deg)` : undefined }}
-                        />
-                      </span>
+                      <img
+                        src={book.spineImage}
+                        alt={`${book.title} spine`}
+                        className="block h-full w-full object-contain"
+                        onLoad={(event) => {
+                          const image = event.currentTarget;
+                          const baseRatio = image.naturalWidth / image.naturalHeight;
+                          const ratio = book.rotateSpine ? 1 / baseRatio : baseRatio;
+                          setSpineRatios((current) => (
+                            current[book.title] === ratio ? current : { ...current, [book.title]: ratio }
+                          ));
+                        }}
+                        style={{
+                          objectFit: 'contain',
+                          objectPosition: 'center bottom',
+                          transform: book.rotateSpine ? `rotate(${book.rotateSpine}deg)` : undefined
+                        }}
+                      />
                     ) : (
                       <span
                         className="flex max-h-full max-w-full items-center justify-center overflow-hidden text-center font-semibold tracking-wide text-white/90"
