@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { BookOpen, Mountain, Languages, Flame } from 'lucide-react';
 import { Card } from './ui/card';
+import { Bookshelf } from './Bookshelf';
 
 const BASE_STREAK_DATE = new Date('2026-10-18T00:00:00');
 
@@ -158,6 +159,7 @@ export function Hobbies() {
                       </div>
                     </div>
                   ) : null}
+                  {hobby.title === 'Reading' ? <Bookshelf /> : null}
                   {hobby.image ? (
                     <div className="mt-5 overflow-hidden rounded-xl">
                       <img
